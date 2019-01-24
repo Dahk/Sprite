@@ -26,16 +26,9 @@
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd )
+	gfx( wnd ),
+	payo( Vec2(gfx.ScreenWidth / 2, gfx.ScreenHeight / 2) )
 {
-	std::mt19937 rng( 69 );
-	std::uniform_int_distribution<int> xd( 0,Graphics::ScreenWidth - s.GetWidth() - 1 );
-	std::uniform_int_distribution<int> yd( 0,Graphics::ScreenHeight - s.GetHeight() - 1 );
-
-	for( int i = 0; i < 50; i++ )
-	{
-		positions.push_back( { xd( rng ),yd( rng ) } );
-	}
 }
 
 void Game::Go()
@@ -48,16 +41,25 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	Vec2 newPos = (Vec2)wnd.mouse.GetPos();
+	
+	if (wnd.mouse.IsInWindow())
+	{
+		payo.SetDirection( ((Vec2)(Vei2)(newPos - payo.GetPos())).GetNormalized() );
+		payo.Update( ftimer.Mark() );
+	}
+	else
+	{
+		payo.SetDirection({ 0.0f,0.0f });
+		payo.Update(ftimer.Mark());
+	}
 }
 
 void Game::ComposeFrame()
 {
 	bencher.Start();
 
-	for( const auto& pos : positions )
-	{
-		gfx.DrawSprite( pos.x,pos.y,s,SpriteEffect::Copy{} );
-	}
+	payo.Draw( gfx );
 
 	if( bencher.End() )
 	{

@@ -61,7 +61,7 @@ public:
 		{
 			return *this * ((T)1 / len);
 		}
-		return *this;
+		return { (T)0, (T)0 };
 	}
 public:
 	T x;

@@ -18,13 +18,14 @@ Character::Character( const Vec2& pos )
 void Character::Draw( Graphics& gfx ) const
 {
 	// if effect active, draw sprite replacing opaque pixels with red
+	Vei2 posDisp = (Vei2)pos - Vei2( 45, 45 );
 	if( effectActive )
 	{
-		animations[(int)iCurSequence].DrawColor( (Vei2)pos,gfx,Colors::Red );
+		animations[(int)iCurSequence].DrawColor( posDisp,gfx,Colors::Red );
 	}
 	else
 	{
-		animations[(int)iCurSequence].Draw( (Vei2)pos,gfx );
+		animations[(int)iCurSequence].DrawChroma( posDisp,gfx );
 	}
 }
 

@@ -25,6 +25,8 @@
 #include "Graphics.h"
 #include "Surface.h"
 #include "Bencher.h"
+#include "Character.h"
+#include "FrameTimer.h"
 
 class Game
 {
@@ -44,8 +46,9 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
-	std::vector<Vei2> positions;
 	Surface s = { "Images\\link90x90.bmp" };
+	Character payo;
 	Bencher bencher;
+	FrameTimer ftimer;
 	/********************************/
 };

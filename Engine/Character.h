@@ -25,6 +25,10 @@ public:
 	void Update( float dt );
 	// activates a damage visual effect
 	void ActivateEffect();
+	Vec2 GetPos() const
+	{
+		return pos;
+	}
 private:
 	Surface sprite;
 	Vec2 pos;
